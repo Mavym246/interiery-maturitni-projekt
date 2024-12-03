@@ -18,3 +18,7 @@
 </nav>
 
 {@render children()}
+
+<footer class="mt-24 bg-gray-700 p-8">
+  <p>footer</p>
+</footer>
