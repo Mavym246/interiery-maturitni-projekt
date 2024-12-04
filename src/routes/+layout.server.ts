@@ -1,8 +1,14 @@
+import { isLogged, setLoggedIn } from '$lib/authStore';
 import { prisma } from '$lib/server/prisma';
 import type { LayoutServerLoad } from './$types';
+import type { ServerLoadEvent } from '@sveltejs/kit';
 
-export const load = (async () => {
+export const load: LayoutServerLoad = async (event: ServerLoadEvent) => { 
     const data = await prisma.page.findMany();
-    
-    return { data };
-}) satisfies LayoutServerLoad;
+
+    const loggedIn = event.locals.session;
+
+    setLoggedIn(loggedIn !== null);
+
+        return { data, loggedIn };
+};

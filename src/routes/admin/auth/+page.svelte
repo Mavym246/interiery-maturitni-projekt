@@ -4,9 +4,14 @@
 
 	let { data }: { data: PageServerData } = $props();
 </script>
+<br>
 
-<h1>Hi, {data.user.username}!</h1>
-<p>Your user ID is {data.user.id}.</p>
-<form method="post" action="?/logout" use:enhance>
-	<button>Sign out</button>
-</form>
+
+<section class="flex flex-col items-center gap-4 mt-32">
+	<h1>Čau:  {data.user.username}</h1>
+	<p>user ID: {data.user.id}.</p>
+	<form method="post" action="?/logout" use:enhance>
+		<button class="px-8 py-2 border border-black rounded-xl">Odhlásit</button>
+	</form>
+	
+</section>

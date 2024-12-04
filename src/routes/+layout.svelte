@@ -7,7 +7,7 @@
   class="py-8 absolute flex justify-between items-center w-full max-w-[1400px] left-1/2 transform -translate-x-1/2"
 >
   <a href="/" class="max-w-[300px]"
-    ><img src="./logo_interierycz.png" alt="Logo firmy" /></a
+    ><img src="/logo_interierycz.png" alt="Logo firmy" /></a
   >
   <ul class="flex gap-8 text-xl font-semibold">
     <li><a href="/">Úvod</a></li>
@@ -17,8 +17,10 @@
   </ul>
 </nav>
 
-{@render children()}
+<main class="min-h-[80vh]">
+  {@render children()}
+</main>
 
-<footer class="mt-24 bg-gray-700 p-8">
-  <p>footer</p>
+<footer class="flex justify-center p-12 mt-24 bg-gray-700">
+  <a href="/admin/auth/">Administrace</a>
 </footer>

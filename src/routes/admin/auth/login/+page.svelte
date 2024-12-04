@@ -5,19 +5,27 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<p class="h-36">f</p>
+<br>
 
-<h1>Login/Register</h1>
-<form method="post" action="?/login" use:enhance>
-	<label>
-		Username
-		<input name="username" />
-	</label>
-	<label>
-		Password
-		<input type="password" name="password" />
-	</label>
-	<button>Login</button>
-	<button formaction="?/register">Register</button>
-</form>
-<p style="color: red">{form?.message ?? ''}</p>
+<section class="flex flex-col items-center justify-center mt-32">
+	<h1>Login/Register</h1>
+
+	<form class="p-8 border-2 " method="post" action="?/login" use:enhance>
+		<label>
+			Username:
+			<input class="bg-gray-200" name="username" />
+		</label>
+		<label>
+			Password:
+			<input class="bg-gray-200" type="password" name="password" />
+		</label>
+		<br>
+		<div class="flex justify-center gap-4 mt-8">
+			<button class="px-8 py-2 border rounded-xl">Login</button>
+			<button class="px-8 py-2 border rounded-xl" formaction="?/register">Register</button>
+		</div>
+
+	</form>
+	<p style="color: red">{form?.message ?? ''}</p>
+	
+</section>
