@@ -1,6 +1,5 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { isLogged } from "$lib/authStore";
   import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
@@ -11,16 +10,19 @@
   export let className = "";
 
   const id = data.id;
-  const content = data.content;
+  let content = data.content;
 
+  let dialogOpen = false;
+
+  let loggedIn = false;
 </script>
 
 <svelte:element this={htmlTag} class={className}>
   {content}
 </svelte:element>
 
-{#if !$isLogged}
-  <Dialog.Root>
+{#if !loggedIn}
+  <Dialog.Root bind:open={dialogOpen}>
     <Dialog.Trigger class={buttonVariants({ variant: "outline" }) + " max-w-24"}
       >Upravit</Dialog.Trigger
     >
@@ -32,11 +34,21 @@
         </Dialog.Description>
       </Dialog.Header>
 
-      <form method="post" action="/?/setText" use:enhance>
+      <form
+        method="post"
+        action="/?/setText"
+        use:enhance={({ formData }) => {
+          formData.append("id", id);
+          return async ({ result }) => {
+            if (result.type === "success") {
+              dialogOpen = false;
+              content = formData.get("content") as string;
+            }
+          };
+        }}
+      >
         <Label for="name" class="my-2">Text</Label>
-        <Input type="hidden" name="id" value={id} />
         <Input type="text" name="content" value={content} />
-
         <Button type="submit">Uložit Změny</Button>
       </form>
     </Dialog.Content>

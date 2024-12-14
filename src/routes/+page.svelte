@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="flex items-end justify-start h-screen bg-cover"
+  class="flex items-end justify-start h-screen bg-top bg-no-repeat bg-cover"
   style="background-image: url(./uvodni-obrazek.jpg);"
 >
   <div class="mb-12 ml-32 max-w-[400px] rounded-3xl bg-black bg-opacity-85 p-8">
@@ -23,7 +23,7 @@
   <section class="w-full">
     <TextDialog htmlTag="h1" className="text-6xl font-bold" data={text[1]} />
     <br />
-    <div class="grid grid-cols-[3fr_1fr] grid-rows-3 gap-8 h-[550px]">
+    <div class="grid grid-cols-1 lg:grid-cols-[3fr_1fr] lg:grid-rows-3 gap-8 lg:h-[550px] min-h-[550px]">
       <img
         src="./foto-1.jpg"
         class="w-full h-full row-span-3 overflow-hidden bg-gray-300 bg-cover rounded-3xl"
@@ -58,7 +58,7 @@
       />
     </div>
 
-    <div class="flex justify-center gap-32 mt-12">
+    <div class="flex flex-row justify-center gap-8 lg:gap-32 lg:mt-12">
       <div>
         <TextDialog htmlTag="span" className="text-5xl font-bold" data={text[5]} />
         <TextDialog htmlTag="p" className="text-lg" data={text[6]} />
@@ -75,7 +75,7 @@
   </section>
 
   <section class="w-full my-44">
-    <div class="flex items-center justify-center w-full gap-8">
+    <div class="flex flex-col items-center justify-center w-full gap-8 lg:flex-row">
       <img
         class="w-full aspect-4/3 rounded-3xl"
         src="./uvod-kuchyn.jpeg"
@@ -91,7 +91,7 @@
 
   <section class="w-full">
     <TextDialog htmlTag="h3" className="text-5xl font-bold" data={text[13]} />
-    <div class="grid mt-8 grid-flow-column grid-cols-3 grid-rows-5 gap-8 h-[900px] max-h-screen">
+    <div class="grid mt-8 grid-flow-column lg:grid-cols-3 lg:grid-rows-5 gap-8 h-[900px] max-h-screen">
       <div class="w-full row-span-2 overflow-hidden bg-gray-300 rounded-3xl">1</div>
       <div class="w-full row-span-3 overflow-hidden bg-gray-300 rounded-3xl">2</div>
       <div class="w-full row-span-2 overflow-hidden bg-gray-300 rounded-3xl">3</div>

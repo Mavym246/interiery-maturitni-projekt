@@ -36,6 +36,8 @@ model Project {
   id          String     @id @default(uuid())
   name        String
   description String
+  published   Boolean
+  slug        String    @unique
   createdAt   DateTime   @default(now())
   categories  Category[] @relation("ProjectCategories")
   images      Image[]
