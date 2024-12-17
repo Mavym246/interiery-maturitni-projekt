@@ -28,14 +28,15 @@
         {/each}
       </Carousel.Content>
 
-      <div class="relative mx-auto self-center justify-self-end max-w-[300px]">
-        <Carousel.Previous class="w-16 h-16 rounded-full" />
-        <Carousel.Next />
+      <div class="relative mx-auto self-center justify-self-end max-w-[70px]">
+        <Carousel.Previous class="w-16 h-16 text-white bg-black border-black" />
+        <Carousel.Next class="w-16 h-16 text-white bg-black border-black rounded-full" />
       </div>
     </Carousel.Root>
   {/if}
 
   {#if loggedIn}
+    <!-- Nahrávání obrázků -->
     <form
       class="flex flex-col items-center p-8 mt-24 bg-gray-300"
       method="post"
@@ -60,6 +61,7 @@
 
     <div class="flex flex-col items-center w-full mt-24">
       {#if !(project.images.length === 0)}
+      <!-- Odstranění obrázků -->
         <form
           method="post"
           action="?/imgDelete"
@@ -84,6 +86,8 @@
           >
         </form>
       {/if}
+
+      <!-- Odstranění projektu -->
 
       <form
         action="?/projectDelete"

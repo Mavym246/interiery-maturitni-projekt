@@ -6,7 +6,7 @@
 
 <br>
 
-<div class="flex flex-col mx-auto px-12 max-w-[1400px] mt-32">
+<div class="flex flex-col mx-auto px-12 max-w-[1500px] mt-32">
     <h1 class="text-6xl font-bold">Kontaktujte Nás</h1>
 
     <div class="flex gap-8 mt-16">

@@ -8,7 +8,7 @@
 </script>
 
 <br />
-<div class="flex flex-col mx-auto px-12 max-w-[1400px] mt-32">
+<div class="flex flex-col mx-auto px-12 max-w-[1500px] mt-32">
     <section class="flex items-center justify-center w-full gap-8">
       <div class="w-full">
         <TextDialog htmlTag="h1" className="text-6xl font-bold" data={text[14]} />

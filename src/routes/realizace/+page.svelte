@@ -17,8 +17,8 @@
 
 <br />
 
-<div class="flex flex-col mx-auto px-12 max-w-[1400px] mt-32">
-  <h1 class="text-6xl font-bold text-center mb-12">Realizace</h1>
+<div class="flex flex-col mx-auto px-12 max-w-[1500px] mt-32">
+  <h1 class="mb-12 text-6xl font-bold text-center">Realizace</h1>
 
   {#if data.loggedIn}
     <Dialog.Root>

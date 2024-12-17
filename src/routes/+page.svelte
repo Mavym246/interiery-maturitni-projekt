@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="flex items-end justify-start h-screen bg-top bg-no-repeat bg-cover"
+  class="flex items-end justify-start bg-top h-[85vh] bg-no-repeat bg-cover md:h-screen"
   style="background-image: url(./uvodni-obrazek.jpg);"
 >
   <div class="mb-12 ml-32 max-w-[400px] rounded-3xl bg-black bg-opacity-85 p-8">
@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div class="flex flex-col mx-auto px-12 max-w-[1400px] mt-24">
+<div class="flex flex-col mx-auto px-12 max-w-[1500px] mt-24">
   <section class="w-full">
     <TextDialog htmlTag="h1" className="text-6xl font-bold" data={text[1]} />
     <br />
