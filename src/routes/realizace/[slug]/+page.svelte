@@ -3,10 +3,28 @@
   import * as Carousel from "$lib/components/ui/carousel/index.js";
   import { enhance } from "$app/forms";
   import { goto } from "$app/navigation";
+  import Editor from "$lib/components/Editor.svelte";
+  import { toast } from "svelte-sonner";
+  import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
+  import * as Dialog from "$lib/components/ui/dialog/index.js";
+
+
+  
   let { data }: { data: PageData } = $props();
 
+  interface Project {
+    name: string;
+    slug: string;
+    description: string;
+    published: boolean;
+    images: { id: string; url: string; name: string }[];
+  }
+
   const loggedIn = data.loggedIn;
-  const project = data.project as any;
+  const project = data.project as Project;
+  let deleteDialogOpen = $state(false);
+
+
 </script>
 
 <br />
@@ -47,8 +65,9 @@
 
         return async ({ result }) => {
           if (result.type === "success") {
-            window.location.reload();
-          }
+          toast.success("Obrázek byl úspěšně nahrán");
+          await new Promise(res => setTimeout(res, 1000));
+          window.location.reload();}
         };
       }}
     >
@@ -86,37 +105,97 @@
           >
         </form>
       {/if}
+      <!-- Upravení projektu -->
+
+      <!-- <form class="flex flex-col items-center p-8 mt-24 bg-gray-300" action="?/projectUpdate" method="post" use:enhance={({ formData }) => {
+        formData.append("oldSlug", project.slug);
+        const getName = formData.get("name") as string;
+        formData.append("images", JSON.stringify(project.images.map((image: any) => image)));
+        const slug = getName            
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/\s+/g, "-")
+              .replace(/[^a-z0-9-]/g, "");
+        formData.append("slug", slug);
+
+        return async ({ result }) => {
+          if (result.type === "success") {
+            goto("/realizace/" + slug);
+          }
+        };
+
+          }}>
+        <input type="text" name="name" value={project.name} />
+        <button class="px-8 py-2 mt-12 border border-black rounded-xl"
+          >Upravit Projekt</button>
+          <p>{project.images.map((image) => image)}</p>
+      </form> -->
 
       <!-- Odstranění projektu -->
+      <Dialog.Root bind:open={deleteDialogOpen}>
+        <Dialog.Trigger class={buttonVariants({ variant: "outline" }) + " max-w-24"}>
+          Odstranit projekt
+        </Dialog.Trigger>
+        <Dialog.Content class="sm:max-w-[425px]">
+          <Dialog.Header>
+            <Dialog.Title>Odstranit Projekt</Dialog.Title>
+            <Dialog.Description>
+              Opravdu chcete tento projekt odstranit? Tato akce je nevratná.
+            </Dialog.Description>
+          </Dialog.Header>
+      
+          <form
+            action="?/projectDelete"
+            method="post"
+            use:enhance={({ formData }) => {
+              formData.append("slug", project.slug);
+              formData.append("images", JSON.stringify(project.images.map((image) => image.name)));
+      
+              return async ({ result }) => {
+                if (result.type === "success") {
+                  await goto("/realizace");
+                  toast.success("Projekt byl úspěšně odstraněn");
+                }
+              };
+            }}
+          >
+            <button
+              type="submit"
+              class="px-8 py-2 border border-black rounded-xl"
+            >Ano</button>
+            <button
+              type="button"
+              class="px-8 py-2 border border-black rounded-xl"
+              onclick={() => (deleteDialogOpen = false)}
+            >Ne</button>
+          </form>
+        </Dialog.Content>
+      </Dialog.Root>
+      
 
-      <form
-        action="?/projectDelete"
-        method="post"
-        use:enhance={({ formData }) => {
-          formData.append("slug", project.slug);
-          formData.append(
-            "images",
-            project.images.map((image: any) => image.name)
-          );
 
-          return async ({ result }) => {
-            if (result.type === "success") {
-              goto("/realizace");
-            }
-          };
-        }}
-      >
-        <button
-          type="submit"
-          class="px-8 py-2 mt-12 border border-black rounded-xl"
-          >Odstranit Projekt</button
-        >
-      </form>
+
     </div>
   {/if}
 
-  <section class="items-center h-32 mt-32">
+  <section class=" flex flex-col min-h-[400px] mt-32">
     <h1 class="text-6xl font-bold">{project.name}</h1>
-    <span>wysiwyg editor</span>
+
+    <div class="tiptap mt-4">
+      {#if loggedIn}
+        <Editor description={project.description} slug={project.slug} />
+        {:else}
+         {@html project.description}
+      {/if}
+
+    </div>
+
   </section>
+
+  
 </div>
+
+<style>
+
+</style>

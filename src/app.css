@@ -72,4 +72,41 @@
   body {
     @apply bg-background text-foreground;
   }
+
+
+  .tiptap {
+    @apply outline-none;
+    h2 {
+      @apply text-3xl;
+    }
+  
+    h3 {
+      @apply text-2xl;
+    }
+  
+    p {
+      @apply text-base leading-relaxed;
+    }
+  
+    /* Reset první položky */
+    :first-child {
+      @apply mt-0;
+    }
+  
+    /* Seznamy */
+    ul {
+      @apply list-disc pl-4 my-5;
+    }
+  
+    ol {
+      @apply list-decimal pl-4 my-5;
+    }
+  
+    ul li p,
+    ol li p {
+      @apply my-1;
+    }
+  }
+
 }
+

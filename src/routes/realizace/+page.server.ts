@@ -6,7 +6,8 @@ export const load = (async () => {
     const data = await prisma.project.findMany(
         {
             include: {
-                images: true
+                images: true,
+                categories: true
             }
         }
     );

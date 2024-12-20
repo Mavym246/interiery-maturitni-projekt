@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import { Toaster } from "$lib/components/ui/sonner";
   import "../app.css";
 
   const links = [
@@ -17,8 +18,9 @@
     "after:absolute after:bg-gray-600 after:origin-center after:h-[2px] after:w-0 hover:after:w-[50%] " +
     "after:bottom-[-1px] after:right-[50%]";
 
-  let isMenuOpen = false; // Stav pro zobrazení hamburger menu
+  let isMenuOpen = false;
 </script>
+
 
 <nav class="py-10 md:absolute relative md:bg-transparent bg-white max-w-[1500px] top-0 left-1/2 -translate-x-1/2 w-full z-50 flex justify-between items-center md:px-12">
   <!-- Hamburger Menu Icon -->
@@ -69,7 +71,7 @@
     </div>
   {/if}
 </nav>
-
+<Toaster />
 <main class="min-h-[80vh]">
   <slot />
 </main>

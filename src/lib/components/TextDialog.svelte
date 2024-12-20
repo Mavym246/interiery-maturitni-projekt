@@ -4,8 +4,11 @@
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
+  import { toast } from "svelte-sonner";
   import Loader from "./Loader.svelte";
-
+  import { page } from '$app/stores';
+  
+  $: loggedIn = $page.data.loggedIn;
   export let data;
   export let htmlTag = "span";
   export let className = "";
@@ -14,8 +17,6 @@
   let content = data.content;
 
   let dialogOpen = false;
-
-  let loggedIn = false;
   let loading = false;
 </script>
 
@@ -47,6 +48,10 @@
               dialogOpen = false;
               loading = false;
               content = formData.get("content") as string;
+              toast.success("Text byl úspěšně uložen");
+            } else {
+              loading = false;
+              toast.error("Text se nepodařilo uložit");
             }
           };
         }}

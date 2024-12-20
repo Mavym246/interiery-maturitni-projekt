@@ -8,6 +8,7 @@
   import type { PageData } from "./$types";
   import { goto } from "$app/navigation";
   import Loader from "$lib/components/Loader.svelte";
+  import { toast } from "svelte-sonner";
 
   let { data }: { data: PageData } = $props();
   let formLoading = $state(false);
@@ -52,12 +53,20 @@
               formLoading = false;
               if (result.type === "success") {
                 goto("/realizace/" + slug);
+                toast.success("Projekt byl úspěšně vytvořen");
+              } else {
+                toast.error("Projekt se nepodařilo vytvořit");
               }
             };
           }}
         >
           <Label for="name" class="my-2">Název</Label>
           <Input type="text" name="name" />
+          <!-- <select name="category" id="">
+            {#each projects as project}
+              <option value={project.categories[0].id}>{project.categories[0].name}</option>
+            {/each}
+          </select> -->
 
           <Button type="submit">
             {#if formLoading}

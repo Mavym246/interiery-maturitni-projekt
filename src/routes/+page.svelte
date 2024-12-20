@@ -54,7 +54,7 @@
       <img
         src="./uvod-zrcadlo.jpg"
         alt="f"
-        class="w-full h-full row-span-2 overflow-hidden bg-gray-300 bg-cover rounded-3xl"
+        class="w-full h-full row-span-2 overflow-hidden bg-gray-300 aspect-auto rounded-3xl"
       />
     </div>
 
