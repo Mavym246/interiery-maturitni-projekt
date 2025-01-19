@@ -1,9 +1,10 @@
 import { prisma } from '$lib/server/prisma';
-import { redirect, type Actions } from '@sveltejs/kit';
+import { type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import type { CategoryData, ProjectData } from '$lib/types';
 
 export const load = (async () => {
-    const data = await prisma.project.findMany(
+    const data: ProjectData[] = await prisma.project.findMany(
         {
             include: {
                 images: true,
@@ -11,7 +12,10 @@ export const load = (async () => {
             }
         }
     );
-    return { data };
+
+    const catageories: CategoryData[] = await prisma.category.findMany();
+
+    return { data, catageories };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -20,13 +24,19 @@ export const actions = {
         const name = data.get('name') as string;
         const slug = data.get('slug') as string;
 
+        const categories = data.getAll('categories') as string[];
+
 
         await prisma.project.create({
             data: {
                 name,
                 slug,
                 description: '',
-                published: false
+                published: false,
+                
+                categories: {
+                    connect: categories.map((id) => ({ id: parseInt(id) }))
+                }
             }
         });
 

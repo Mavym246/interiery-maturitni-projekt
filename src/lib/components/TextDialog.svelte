@@ -6,10 +6,14 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { toast } from "svelte-sonner";
   import Loader from "./Loader.svelte";
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
+  import type { TextData } from "$lib/types";
+  import { animate, inView } from "motion";
+  import { onMount } from "svelte";
+
   
-  $: loggedIn = $page.data.loggedIn;
-  export let data;
+  $: loggedIn = page.data.loggedIn;
+  export let data: TextData;
   export let htmlTag = "span";
   export let className = "";
 
@@ -18,9 +22,15 @@
 
   let dialogOpen = false;
   let loading = false;
+
+  onMount(() => {
+    inView("#text-dialog", info  => { animate(info.target, { opacity: [0.5, 1], y: [20, 0]}, { duration: 0.5, delay: 0.2, ease: "easeInOut" }) });
+
+  })
+
 </script>
 
-<svelte:element this={htmlTag} class={className}>
+<svelte:element id="text-dialog" this={htmlTag} class={className}>
   {content}
 </svelte:element>
 
@@ -41,7 +51,7 @@
         method="post"
         action="/?/setText"
         use:enhance={({ formData }) => {
-          formData.append("id", id);
+          formData.append("id", id.toString());
           loading = true;
           return async ({ result }) => {
             if (result.type === "success") {
@@ -58,7 +68,7 @@
       >
         <Label for="name" class="my-2">Text</Label>
         <Input type="text" name="content" value={content} />
-        <Button class="min-w-[110px]" type="submit">
+        <Button disabled={loading} class="min-w-[110px]" type="submit">
 
           {#if loading}
             <Loader />

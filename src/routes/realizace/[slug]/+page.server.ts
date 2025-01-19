@@ -59,6 +59,8 @@ export const actions = {
   imgDelete: async ({ request }) => {
     const formData = await request.formData();
     const images = formData.getAll("images") as string[];
+    const slug = formData.get("slug") as string;
+    const uploadDir = path.join("static/realizace/" + slug, images[0].split(",")[0]);
 
     await prisma.image.deleteMany({
       where: {
@@ -67,6 +69,8 @@ export const actions = {
         },
       },
     });
+
+    await fs.rm(uploadDir, { recursive: true, force: true });
   },
 
   projectDelete: async ({ request }) => {

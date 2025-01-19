@@ -1,8 +1,15 @@
 <script lang="ts">
+  import type { TextData } from '$lib/types';
     import type { PageData } from './$types';
 
     let { data }: { data: PageData } = $props();
+    let text: TextData[] = data.textData;
+
 </script>
+
+<svelte:head>
+  <title>Kontakt | Interiéry CZ</title>
+</svelte:head>
 
 <br>
 

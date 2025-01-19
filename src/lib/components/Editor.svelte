@@ -5,12 +5,15 @@
   import TextAlign from '@tiptap/extension-text-align'
   import { enhance } from '$app/forms';
   import { toast } from 'svelte-sonner';
+  import Button from './ui/button/button.svelte';
+  import Loader from './Loader.svelte';
 
   let element: HTMLDivElement | null = null;
-  let editor: Editor | null = null;
+  let editor: Editor | null =$state(null);
 
-  export let description;
-  export let slug;
+  let { description, slug } = $props();
+
+  let formLoading = $state(false);
 
   onMount(() => {
     if (element) {
@@ -118,6 +121,7 @@
 <form action="?/editorSave" method="post" use:enhance={({ formData }) => {
   formData.append("description", editor?.getHTML() || '');
   formData.append("slug", slug);
+  formLoading = true;
 
   return async ({ result }) => {
     if (result.type === "success") {
@@ -125,10 +129,21 @@
     } else {
       toast.error("Změny nebyly uloženy");
     }
-
+    formLoading = false;
   };
 }}>
-  <button class="px-8 py-2 mt-12 border border-black rounded-xl">Save</button>
+  <br>
+
+<div class="flex">
+  <Button disabled={formLoading} type="submit" class="px-8 mx-auto py-2 border border-black rounded-xl">
+    {#if formLoading}
+      <Loader />
+    {:else}
+      Uložit
+    {/if}
+  </Button>
+</div>
+
 </form>
 
 
