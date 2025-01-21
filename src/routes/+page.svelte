@@ -96,7 +96,6 @@
         src="/static/uvod/zrcadlo.webp"
         alt="f"
         sizes="100vw"
-        loading="lazy"
         class="object-cover w-full h-full"
       />
       </div>
@@ -151,7 +150,6 @@
         class="object-contain w-full h-full drop-shadow-lg basis-3/5 rounded-3xl"
         src="/static/uvod/kuchyn2.webp"
         alt="obrazek"
-        loading="lazy"
         sizes="100vw"
       />
       <div class="basis-2/3">
@@ -191,7 +189,6 @@
         <enhanced:img
           src="/static/uvod/uvod_skrin.webp"
           alt="Skrin"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
@@ -205,7 +202,6 @@
         <enhanced:img
           src="/static/uvod/uvod_kuchyn3.webp"
           alt="Kuchyne"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
@@ -219,7 +215,6 @@
         <enhanced:img
           src="/static/uvod/uvod_vitrina.webp"
           alt="Vitrina"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
@@ -233,7 +228,6 @@
         <enhanced:img
           src="/static/uvod/uvod_satna.webp"
           alt="Satna"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
@@ -247,7 +241,6 @@
         <enhanced:img
           src="/static/uvod/uvod_loznice.webp"
           alt="Loznice"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
@@ -261,7 +254,6 @@
         <enhanced:img
           src="/static/uvod/uvod_kuchyn4.webp"
           alt="Kuchyne 2"
-          loading="lazy"
           class="object-cover w-full h-full"
         />
       </a>
