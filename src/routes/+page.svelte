@@ -36,12 +36,12 @@
   </enhanced:img>
   <div
     id="hero-text"
-    class=" max-w-[400px] z-50 xl:ml-48 sm:ml-12 m-4 mb-8 rounded-3xl bg-black bg-opacity-80 backdrop-blur-sm p-8"
+    class=" max-w-[400px] z-50 xl:ml-48 sm:ml-12 m-4 mb-8 rounded-3xl bg-black/80 backdrop-blur-xs p-8"
   >
-    <TextDialog htmlTag="p" className="lg:text-xl text-lg text-white" data={text[0]} />
-    <button class="px-8 py-2 mt-4 text-white border rounded-lg">
-      Reference &rAarr;
-    </button>
+    <TextDialog htmlTag="p" className="lg:text-xl text-lg text-white mb-6" data={text[0]} />
+    <a href="/realizace" class="px-8 py-2 text-white border rounded-lg hover:bg-white hover:text-black transition duration-10000 ease-in-out">
+      Realizace &rAarr;
+    </a>
   </div>
 </div>
 
@@ -67,7 +67,7 @@
       </div>
 
       <div
-        class="hidden w-full h-full row-span-1 overflow-hidden bg-gray-300 drop-shadow-sm lg:block rounded-3xl"
+        class="hidden w-full h-full row-span-1 overflow-hidden bg-gray-300 drop-shadow-xs lg:block rounded-3xl"
       >
         <div
           class="flex flex-col justify-between w-full h-full gap-2 px-4 pt-5 pb-4 lg:gap-0"
@@ -160,12 +160,13 @@
         />
         <TextDialog
           htmlTag="p"
-          className="mt-4 lg:text-lg text-base leading-5 lg:leading-normal"
+          className="mt-4 lg:text-lg text-base leading-5 mb-6 lg:leading-normal"
           data={text[12]}
         />
-        <button
+        <a
+          href="/o-nas"
           class="px-8 py-2 mt-4 text-white bg-black border rounded-lg color-white"
-          >O Nás &rAarr;</button
+          >O Nás &rAarr;</a
         >
       </div>
     </div>

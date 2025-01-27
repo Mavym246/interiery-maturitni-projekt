@@ -51,8 +51,8 @@
 
       {#if project.images.length > 1}
       <div class="relative mx-auto self-center justify-self-end max-w-[70px]">
-        <Carousel.Previous class="w-16 h-16 text-white bg-black border-black" />
-        <Carousel.Next class="w-16 h-16 text-white bg-black border-black rounded-full" />
+        <Carousel.Previous class="w-16 h-16 text-white bg-black/85 border-black cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white" />
+        <Carousel.Next class="w-16 h-16 text-white bg-black/85 border-black rounded-full cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white" />
       </div>
       {/if}
 
@@ -174,7 +174,7 @@
     </div>
   {/if}
 
-  <section class=" flex flex-col min-h-[400px] mt-24">
+  <section class=" flex flex-col mt-16">
     <h1 class="text-6xl font-bold">{project.name}</h1>
 
     <div class="mt-4 tiptap">

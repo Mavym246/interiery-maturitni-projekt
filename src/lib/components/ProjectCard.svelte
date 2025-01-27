@@ -19,7 +19,7 @@
     </div>
   {/if}
   <p
-    class="absolute bg-black bg-opacity-80 p-4 backdrop-blur-sm text-white bottom-0 w-full text-center transform translate-y-full opacity-0 transition-all ease-in-out duration-500 group-hover:translate-y-0 group-hover:opacity-100"
+    class="absolute bg-black bg-opacity-80 p-4 backdrop-blur-xs text-white bottom-0 w-full text-center transform translate-y-full opacity-0 transition-all ease-in-out duration-500 group-hover:translate-y-0 group-hover:opacity-100"
   >
     {data.name}
   </p>
