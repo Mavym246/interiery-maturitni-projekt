@@ -17,11 +17,10 @@ COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/prisma ./prisma
 
 RUN mkdir -p /app/data/uploads && \
-    touch /app/data/dev.db && \
     chown -R node:node /app
 
-USER node
 
+USER node
 EXPOSE 3000
 
 CMD ["sh", "-c", "npx prisma generate && node server.js"]
