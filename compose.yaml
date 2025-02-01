@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./static/realizace:/app/data/uploads
-      - ./prisma/dev.db:/app/data/dev.db
+      - ./prisma:/app/data
     environment:
       NODE_ENV: production
       DATABASE_URL: 'file:/app/data/dev.db'
