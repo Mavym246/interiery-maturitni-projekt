@@ -10,5 +10,5 @@ services:
       - ./prisma/dev.db:/app/data/dev.db
     environment:
       NODE_ENV: production
-      DATABASE_URL: file:/app/data/dev.db
+      DATABASE_URL: 'file:///app/data/dev.db'
       UPLOAD_DIR: /app/data/uploads
