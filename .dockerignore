@@ -30,6 +30,5 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-**/prisma/dev.db
 LICENSE
 README.md
