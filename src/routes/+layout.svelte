@@ -28,7 +28,7 @@
 </script>
 
 
-<nav class="py-6 xl:py-8 md:absolute relative xl:bg-transparent bg-white max-w-[1500px] top-0 left-1/2 -translate-x-1/2 w-full z-50 flex justify-between items-center md:px-12">
+<nav class="py-6 lg:py-12 xl:py-8 md:absolute relative xl:bg-transparent bg-white max-w-[1500px] top-0 left-1/2 -translate-x-1/2 w-full z-50 flex justify-between items-center md:px-12">
 
 
   <!-- Logo -->

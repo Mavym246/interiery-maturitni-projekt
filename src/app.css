@@ -87,6 +87,9 @@
   * {
     @apply border-border;
   }
+  button {
+    @apply hover:cursor-pointer;
+  }
 
   html {
     @apply scroll-smooth;

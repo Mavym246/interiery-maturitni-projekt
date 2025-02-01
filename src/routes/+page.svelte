@@ -36,7 +36,7 @@
   </enhanced:img>
   <div
     id="hero-text"
-    class=" max-w-[400px] z-50 xl:ml-48 sm:ml-12 m-4 mb-8 rounded-3xl bg-black/80 backdrop-blur-xs p-8"
+    class=" max-w-[400px] z-50 xl:ml-34 sm:ml-12 m-4 mb-8 rounded-3xl bg-black/80 backdrop-blur-xs p-8"
   >
     <TextDialog htmlTag="p" className="lg:text-xl text-lg text-white mb-6" data={text[0]} />
     <a href="/realizace" class="px-8 py-2 text-white border rounded-lg hover:bg-white hover:text-black transition duration-10000 ease-in-out">

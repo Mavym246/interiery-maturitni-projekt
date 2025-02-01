@@ -1,8 +1,11 @@
 import { prisma } from "$lib/server/prisma";
-import type { Actions } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import fs from "fs/promises";
 import path from "path";
+import sharp from "sharp";
+
+const uploadDirBase = process.env.UPLOAD_DIR || "static/realizace";
 
 export const load = (async ({ params }) => {
   const project = await prisma.project.findUnique({
@@ -18,49 +21,67 @@ export const load = (async ({ params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-  imgUpload: async ({ request }) => {
-    const formData = await request.formData();
-    const images = formData.getAll("images") as File[];
-    const slug = formData.get("slug") as string;
+  imgUpload: async ({ request, locals }) => {
+    try {
+      const formData = await request.formData();
+      const images = formData.getAll("images") as File[];
+      const slug = formData.get("slug") as string;
 
-    const uploadDir = path.join("static/realizace/", slug);
-    await fs.mkdir(uploadDir, { recursive: true });
+      // Ověření dat
+      if (!slug || images.length === 0) {
+        return fail(400, { error: "Chybějící data" });
+      }
 
-    const uploadedFiles = [];
-    for (const image of images) {
-      if (!(image instanceof File)) continue;
+      const uploadDir = path.join(uploadDirBase, slug);
+      await fs.mkdir(uploadDir, { recursive: true });
 
-      const fileName = image.name;
-      const filePath = path.join(uploadDir, fileName);
+      const uploadedFiles = [];
+      for (const image of images) {
+        if (!(image instanceof File)) continue;
 
-      const fileBuffer = Buffer.from(await image.arrayBuffer());
-      await fs.writeFile(filePath, fileBuffer);
+        if (!image.type.startsWith('image/')) {
+          return fail(400, { error: "Neplatný typ souboru" });
+        }
 
-      uploadedFiles.push({
-        name: fileName,
-        url: "/realizace/" + slug + "/" + fileName,
-      });
-    }
+        const fileName = image.name.split('.')[0];
+        const webpFileName = `${fileName}.webp`;
+        const filePath = path.join(uploadDir, webpFileName);
 
-    await prisma.project.update({
-      where: {
-        slug: slug,
-      },
-      data: {
-        images: {
-          createMany: {
-            data: uploadedFiles,
+        // Komprese a konverze do WebP formátu
+        const fileBuffer = Buffer.from(await image.arrayBuffer());
+        await sharp(fileBuffer)
+          .webp({ quality: 80 })
+          .toFile(filePath);
+
+        uploadedFiles.push({
+          name: webpFileName,
+          url: path.join("/api/realizace", slug, webpFileName),
+        });
+      }
+
+      await prisma.project.update({
+        where: { slug },
+        data: {
+          images: {
+            createMany: {
+              data: uploadedFiles,
+            },
           },
         },
-      },
-    });
+      });
+
+      return { success: true };
+    } catch (error) {
+      console.error('Upload error:', error);
+      return fail(500, { error: "Chyba při nahrávání" });
+    }
   },
 
   imgDelete: async ({ request }) => {
     const formData = await request.formData();
     const images = formData.getAll("images") as string[];
     const slug = formData.get("slug") as string;
-    const uploadDir = path.join("static/realizace/" + slug, images[0].split(",")[0]);
+    const uploadDir = path.join(uploadDirBase, slug, images[0].split(",")[0]);
 
     await prisma.image.deleteMany({
       where: {
@@ -79,8 +100,6 @@ export const actions = {
     const images = formData.getAll("images") as string[];
     
     const img = images[0].split(",") as string[];
-    
-    console.log(images);
 
     await prisma.image.deleteMany({
       where: {
@@ -96,55 +115,9 @@ export const actions = {
       },
     });
 
-    const uploadDir = path.join("static/realizace/", slug);
+    const uploadDir = path.join(uploadDirBase, slug);
     await fs.rm(uploadDir, { recursive: true, force: true });
   },
-/*
-  projectUpdate: async ({ request }) => {
-    const formData = await request.formData();
-    const oldSlug = formData.get('oldSlug') as string;
-    const newName = formData.get('name') as string;
-    const newSlug = formData.get('slug') as string;
-
-    const imagesJson = formData.get("images") as string;
-    const imageNames = JSON.parse(imagesJson) as string[];
-
-    const oldDir = path.join('static/realizace', oldSlug);
-    const newDir = path.join('static/realizace', newSlug);
-
-    await fs.rename(oldDir, newDir);
-
-    await prisma.project.update({
-      where: { slug: oldSlug },
-      data: {
-        name: newName,
-        slug: newSlug,
-      }
-    });
-
-
-    for (const imageName of imageNames) {
-      await prisma.project.update({
-        where: { slug: newSlug },
-        data: {
-          images: {
-              where: { name: imageName },
-              data: {
-                url: "/realizace/" + newSlug + "/" + imageName,
-              }
-            }
-          
-        }
-      });
-    }
-
-    return {
-      success: true,
-      message: 'Projekt úspěšně aktualizován a obrázky aktualizovány.'
-    };
-  },
-
-  */
 
   editorSave: async ({ request }) => {
     const formData = await request.formData();
