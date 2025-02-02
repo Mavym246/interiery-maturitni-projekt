@@ -28,10 +28,11 @@
 
 <svelte:head>
   <title>{project.name} | Interiéry CZ</title>
+  <meta name="description" content="Realizace projektu {project.name}" />
 </svelte:head>
 
 <br />
-<div class="flex sm:mt-24 flex-col max-w-[1400px]  justify-center mx-auto">
+<div class="flex lg:mt-30 flex-col max-w-[1500px] w-full justify-center mx-auto">
   {#if project.images.length === 0}
     <span class="mt-24 text-5xl font-bold text-center">Zatím žádný obrázek</span
     >
@@ -50,14 +51,15 @@
       </Carousel.Content>
 
       {#if project.images.length > 1}
-      <div class="relative mx-auto self-center justify-self-end max-w-[70px]">
-        <Carousel.Previous class="w-16 h-16 text-white bg-black/85 border-black cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white" />
-        <Carousel.Next class="w-16 h-16 text-white bg-black/85 border-black rounded-full cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white" />
-      </div>
+        <div class="relative mx-auto self-center justify-self-end max-w-[70px]">
+          <Carousel.Previous
+            class="w-16 h-16 text-white bg-black/85 border-black cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white"
+          />
+          <Carousel.Next
+            class="w-16 h-16 text-white bg-black/85 border-black rounded-full cursor-pointer transition duration-300 hover:bg-black/60 hover:text-white"
+          />
+        </div>
       {/if}
-
-
-
     </Carousel.Root>
   {/if}
 
@@ -76,7 +78,7 @@
         use:enhance={({ formData }) => {
           formData.append("slug", project.slug);
           formLoading = true;
-
+          
           return async ({ result }) => {
             if (result.type === "success") {
               toast.success("Obrázek byl úspěšně nahrán");
@@ -119,9 +121,14 @@
           action="?/imgDelete"
           use:enhance={({ formData }) => {
             formData.append("slug", project.slug);
+            formLoading = true;
             return async ({ result }) => {
               if (result.type === "success") {
+                formLoading = false;
                 window.location.reload();
+                toast.success("Obrázek byl úspěšně odstraněn");
+              } else {
+                toast.error("Obrázek nebyl odstraněn");
               }
             };
           }}
@@ -139,8 +146,15 @@
 
           <Button
             class="px-8 py-2 mt-12 border border-black rounded-xl"
-            type="submit">Vymazat Obrázek</Button
+            type="submit"
+            disabled={formLoading}
           >
+            {#if formLoading}
+              <Loader />
+            {:else}
+              Vymazat Obrázek
+            {/if}
+          </Button>
         </form>
       {/if}
       <!-- Upravení projektu -->

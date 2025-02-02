@@ -24,7 +24,7 @@
 
 <div
   id="hero"
-  class="flex relative items-end justify-start z-0 h-[88vh] max-h-screen w-full md:h-screen"
+  class="flex relative items-end justify-start z-0 h-[88vh] max-h-screen w-full lg:h-screen"
 >
   <enhanced:img
     src="/static/uvod/foto_hero.webp"
@@ -45,24 +45,23 @@
   </div>
 </div>
 
-<div class="flex flex-col mx-auto lg:px-12 px-4 max-w-[1500px] mt-24">
+<div class="flex flex-col mx-auto md:px-12 px-4 max-w-[1500px] mt-24">
   <section class="w-full">
     <TextDialog
       htmlTag="h1"
-      className="lg:text-6xl text-left text-3xl font-bold"
+      className="lg:text-6xl md:text-5xl sm:text-4xl text-left text-3xl font-bold"
       data={text[1]}
     />
     <br />
     <div
-      class="grid grid-cols-1 lg:grid-cols-[3fr_1fr] lg:grid-rows-3 gap-8 h-full lg:min-h-[500px] max-h-[65vh]"
+      class="grid grid-cols-1 lg:grid-cols-[3fr_1fr] lg:grid-rows-3 gap-8 h-full lg:max-h-[500px] xl:min-h-[600px]"
     >
       <div class="object-cover w-full h-full row-span-3 overflow-hidden drop-shadow-lg rounded-3xl">
         <enhanced:img
           src="/static/uvod/kuchyn1.webp"
           sizes="100vw" 
           class="object-cover w-full h-full "
-          alt="f"
-          loading="lazy"
+          alt="Kuchyň"
         />
       </div>
 
@@ -81,12 +80,12 @@
           </div>
           <TextDialog
             htmlTag="p"
-            className="text-base mt-1 leading-6"
+            className="xl:text-base lg:text-sm mt-1  leading-6"
             data={text[3]}
           />
           <TextDialog
             htmlTag="span"
-            className="lg:text-2xl text-lg font-bold"
+            className="xl:text-2xl lg:text-lg text-lg font-bold"
             data={text[4]}
           />
         </div>
@@ -102,40 +101,40 @@
 
     </div>
 
-    <div class="flex flex-row justify-center gap-4 mt-4 lg:gap-32 lg:mt-12">
+    <div class="flex flex-row justify-center gap-4 mt-4 lg:gap-32 md:mt-12">
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="lg:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-bold"
           data={text[5]}
         />
         <TextDialog
           htmlTag="p"
-          className="lg:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm leading-4 lg:leading-10"
           data={text[6]}
         />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="lg:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-bold"
           data={text[7]}
         />
         <TextDialog
           htmlTag="p"
-          className="lg:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm leading-4 lg:leading-10"
           data={text[8]}
         />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="lg:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-bold"
           data={text[9]}
         />
         <TextDialog
           htmlTag="p"
-          className="lg:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm leading-4 lg:leading-10"
           data={text[10]}
         />
       </div>
@@ -147,7 +146,7 @@
       class="flex flex-col items-center justify-center w-full h-full gap-8 lg:flex-row"
     >
       <enhanced:img
-        class="object-contain w-full h-full drop-shadow-lg basis-3/5 rounded-3xl"
+        class="object-contain w-full h-full  drop-shadow-lg basis-3/5 rounded-3xl"
         src="/static/uvod/kuchyn2.webp"
         alt="obrazek"
         sizes="100vw"
@@ -185,7 +184,7 @@
         aria-label="Project card"
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_skrin.webp"
@@ -198,7 +197,7 @@
 
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_kuchyn3.webp"
@@ -211,7 +210,7 @@
 
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_vitrina.webp"
@@ -224,7 +223,7 @@
 
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_satna.webp"
@@ -237,7 +236,7 @@
 
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_loznice.webp"
@@ -250,7 +249,7 @@
 
         id="project-card"
         href="/"
-        class="overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl"
       >
         <enhanced:img
           src="/static/uvod/uvod_kuchyn4.webp"

@@ -36,7 +36,7 @@
 
 <br />
 
-<div class="flex flex-col mx-auto lg:px-12 px-4 max-w-[1500px] sm:mt-32">
+<div class="flex flex-col mx-auto lg:px-12 px-4 max-w-[1500px] w-full h-full sm:mt-32">
   <h1 class="mb-8 text-6xl font-bold text-center">Realizace</h1>
 
   {#if data.loggedIn}
@@ -133,8 +133,8 @@
   </div>
 
   <div class="grid gap-16 lg:grid-cols-2">
-    {#each projects as project}
-      <ProjectCard data={project} />
+    {#each projects as project, i}
+      <ProjectCard data={project} index={i} />
     {/each}
   </div>
 </div>

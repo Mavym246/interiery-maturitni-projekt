@@ -12,3 +12,4 @@ services:
       NODE_ENV: production
       DATABASE_URL: 'file:/app/data/dev.db'
       UPLOAD_DIR: /app/data/uploads
+      BODY_SIZE_LIMIT: 50000000  

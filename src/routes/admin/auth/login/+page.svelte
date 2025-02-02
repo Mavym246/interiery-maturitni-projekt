@@ -22,7 +22,7 @@
 		<br>
 		<div class="flex justify-center gap-4 mt-8">
 			<button class="px-8 py-2 border rounded-xl">Login</button>
-			<button class="px-8 py-2 border rounded-xl" formaction="?/register">Register</button>
+			<!-- <button class="px-8 py-2 border rounded-xl" formaction="?/register">Register</button> -->
 		</div>
 
 	</form>
