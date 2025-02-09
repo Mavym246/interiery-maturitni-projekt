@@ -1,11 +1,15 @@
 <script lang="ts">
+  import type { ProjectData } from "$lib/types";
   import { animate, inView } from "motion";
   import { onMount } from "svelte";
-  export let data;
+  export let data: ProjectData;
   export let index;
   
+  // Add a unique key that changes when filtered
+  export let filterKey = 0;
+  
   onMount(() => {
-    inView(`#project-card-${index}`, info => { 
+    inView(`#project-card-${index}-${filterKey}`, info => { 
       animate(
         info.target, 
         { opacity: [0, 1], y: [50, 0]}, 
@@ -16,12 +20,12 @@
         },
       ) 
     });
-  })
+  });
 </script>
 
 <a
-  id="project-card-{index}"
-  class="overflow-hidden shadow-lg relative w-full min-h-[300px] lg:max-h-full rounded-3xl group"
+  id="project-card-{index}-{filterKey}"
+  class="opacity-0 overflow-hidden shadow-lg relative w-full min-h-[300px] lg:max-h-full rounded-3xl group"
   href="realizace/{data.slug}"
 >
   {#if data.images && data.images.length > 0}
@@ -39,6 +43,7 @@
     class="absolute bg-black bg-opacity-80 p-4 rounded-b-3xl backdrop-blur-xs text-white bottom-0 w-full text-center transform translate-y-full opacity-0 transition-all ease-in-out duration-500 group-hover:translate-y-0 group-hover:opacity-100"
   >
     {data.name}
+    {data.categories[0].name}
   </p>
 </a>
 

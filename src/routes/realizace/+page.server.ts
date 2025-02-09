@@ -3,19 +3,26 @@ import { type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { CategoryData, ProjectData } from '$lib/types';
 
-export const load = (async () => {
-    const data: ProjectData[] = await prisma.project.findMany(
-        {
-            include: {
-                images: true,
-                categories: true
+export const load = (async ({ url }) => {
+    const category = url.searchParams.get('category');
+
+    const projects: ProjectData[] = await prisma.project.findMany({
+        where: category ? {
+            categories: {
+                some: {
+                    name: category
+                }
             }
+        } : {},
+        include: {
+            images: true,
+            categories: true
         }
-    );
+    });
 
-    const catageories: CategoryData[] = await prisma.category.findMany();
+    const categories: CategoryData[] = await prisma.category.findMany();
 
-    return { data, catageories };
+    return { projects, categories };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -23,9 +30,7 @@ export const actions = {
         const data = await request.formData();
         const name = data.get('name') as string;
         const slug = data.get('slug') as string;
-
         const categories = data.getAll('categories') as string[];
-
 
         await prisma.project.create({
             data: {
@@ -33,12 +38,10 @@ export const actions = {
                 slug,
                 description: '',
                 published: false,
-                
                 categories: {
                     connect: categories.map((id) => ({ id: parseInt(id) }))
                 }
             }
         });
-
     }
 } satisfies Actions;

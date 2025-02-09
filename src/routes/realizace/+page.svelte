@@ -5,28 +5,34 @@
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
-  import type { PageData } from "./$types";
   import { goto } from "$app/navigation";
   import Loader from "$lib/components/Loader.svelte";
   import { toast } from "svelte-sonner";
   import * as Carousel from "$lib/components/ui/carousel/index.js";
-  import * as Select from "$lib/components/ui/select/index.js";
   import type { CategoryData, ProjectData } from "$lib/types";
   import { page } from "$app/state";
-  let { data }: { data: PageData } = $props();
-  let formLoading = $state(false);
 
-  const projects: ProjectData[] = [...data.data];
-  const categories: CategoryData[] = [...data.catageories];
+  export let data: { projects: ProjectData[], categories: CategoryData[], loggedIn: boolean };
+  let formLoading = false;
+
+  let projects: ProjectData[] = [...data.projects];
+  let categories: CategoryData[] = [...data.categories];
+  let selectedCategory: string | null = null;
+  let filterKey = 0;
+
+  $: filteredProjects = selectedCategory
+    ? projects.filter(project =>
+        project.categories.some(category => category.name === selectedCategory)
+      )
+    : projects;
 
   const updateCategory = (category: string) => {
-    const url = new URL(window.location.href);
-    if (category) {
-      url.searchParams.set("category", category);
+    if (selectedCategory === category) {
+      selectedCategory = null;
     } else {
-      url.searchParams.delete("category");
+      selectedCategory = category;
     }
-    goto(url.toString(), { replaceState: true });
+    filterKey++; // Increment key to trigger re-animation
   };
 </script>
 
@@ -119,8 +125,10 @@
           <Carousel.Item class="text-center basis-1/2 lg:basis-1/3">
             <Button
               onclick={() => updateCategory(category.name)}
-              class="hover:underline hover:bg-transparent bg-transparent text-black">{category.name}</Button
+              class="hover:underline hover:bg-transparent bg-transparent text-black {selectedCategory === category.name ? 'underline font-bold' : ''}"
             >
+              {category.name}
+            </Button>
           </Carousel.Item>
         {/each}
       </Carousel.Content>
@@ -133,8 +141,8 @@
   </div>
 
   <div class="grid gap-16 lg:grid-cols-2">
-    {#each projects as project, i}
-      <ProjectCard data={project} index={i} />
+    {#each filteredProjects as project, i}
+      <ProjectCard data={project} index={i} filterKey={filterKey} />
     {/each}
   </div>
 </div>

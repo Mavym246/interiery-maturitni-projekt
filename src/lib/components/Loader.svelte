@@ -1,5 +1,5 @@
 <svg
-  class="animate-spin -ml-1 mr-3 w-full h-full text-white"
+  class="animate-spin -ml-1 mr-3 w-full mx-auto h-full text-white"
   xmlns="http://www.w3.org/2000/svg"
   fill="none"
   viewBox="0 0 24 24"
