@@ -11,7 +11,9 @@
 
   onMount(() => {
     inView("#project-card", info  => { animate(info.target, { opacity: [0, 1], y: [50, 0]}, { duration: 0.75, delay: 0.2, ease: "easeInOut" },) });
-    inView("#hero-text", info  => { animate(info.target, { opacity: [0, 1], x: [-50, 0]}, { duration: 1, ease: "easeInOut" }) });
+    // inView("#hero-text", info  => { animate(info.target, { opacity: [0, 1], x: [-50, 0]}, { duration: 1, delay: 1.5, ease: "easeInOut" }) });
+
+    // animate("#hero-image", { opacity: [0.8, 1], scale: [1.1, 1] }, { duration: 3, ease: "easeInOut" });
   });
 
 
@@ -24,9 +26,10 @@
 
 <div
   id="hero"
-  class="flex relative items-end justify-start z-0 h-[88vh] max-h-screen w-full lg:h-screen"
+  class="flex relative items-end justify-start z-0 h-[88vh] max-h-screen bg-black overflow-hidden w-full lg:h-screen"
 >
   <enhanced:img
+    id="hero-image"
     src="/static/uvod/foto_hero.webp"
     class="absolute top-0 right-0 bottom-0 z-0 left-0 w-full h-full object-cover object-top"
     draggable="false"
@@ -62,6 +65,7 @@
           sizes="100vw" 
           class="object-cover w-full h-full "
           alt="Kuchyň"
+          id="kuchyn"
         />
       </div>
 

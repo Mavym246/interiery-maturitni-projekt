@@ -16,15 +16,15 @@ export const load = (async ({ params }) => {
       where: { slug: params.slug },
       include: { images: true },
     });
-    
+
     if (!project) {
-      throw error(404, 'Projekt nenalezen');
+      throw error(404, "Projekt nenalezen");
     }
-    
+
     return { project };
   } catch (error) {
     console.error(error);
-    return fail(500, { error: "Nastala chyba" });  
+    return fail(500, { error: "Nastala chyba" });
   }
 }) satisfies PageServerLoad;
 
@@ -34,41 +34,41 @@ export const actions = {
       const formData = await request.formData();
       const images = formData.getAll("images") as File[];
       const slug = formData.get("slug") as string;
-  
+
       // Ověření dat
       if (!slug || images.length === 0) {
         return fail(400, { error: "Chybějící data" });
       }
-  
+
       const uploadDir = path.join(uploadDirBase, slug);
       await fs.mkdir(uploadDir, { recursive: true });
-  
+
       const uploadedFiles: { name: string; url: string }[] = [];
       await Promise.all(
         images.map(async (image) => {
           if (!(image instanceof File)) return;
-  
+
           // Kontrola velikosti souboru
           if (image.size > Number(maxFileSize)) {
-            return fail(400, { error: `Soubor ${image.name} je příliš velký. Maximální velikost je ${maxFileSize} bytes.` });
+            return fail(400, {
+              error: `Soubor ${image.name} je příliš velký. Maximální velikost je ${maxFileSize} bytes.`,
+            });
           }
-  
+
           const fileName = image.name.split(".")[0];
           const webpFileName = `${fileName}.webp`;
           const filePath = path.join(uploadDir, webpFileName);
-  
+
           const fileBuffer = Buffer.from(await image.arrayBuffer());
-          await sharp(fileBuffer)
-            .webp({ quality: 80 })
-            .toFile(filePath);
-  
+          await sharp(fileBuffer).webp({ quality: 80 }).toFile(filePath);
+
           uploadedFiles.push({
             name: webpFileName,
             url: path.join(basePath, slug, webpFileName),
           });
         })
       );
-  
+
       await prisma.project.update({
         where: { slug },
         data: {
@@ -79,7 +79,7 @@ export const actions = {
           },
         },
       });
-  
+
       return { success: true };
     } catch (error) {
       console.error("Upload error:", error);
@@ -122,6 +122,56 @@ export const actions = {
     } catch (error) {
       console.error("Delete error:", error);
       return fail(500, { error: "Chyba při mazání" });
+    }
+  },
+
+  projectUpdate: async ({ request }) => {
+    try {
+      const formData = await request.formData();
+      const oldSlug = formData.get("oldSlug") as string;
+      const newName = formData.get("name") as string;
+      if (!oldSlug || !newName) {
+        return fail(400, { error: "Chybějící údaje" });
+      }
+      const newSlug = formData.get("newSlug") as string;
+      const oldPath = path.join(uploadDirBase, oldSlug);
+      const newPath = path.join(uploadDirBase, newSlug);
+
+      console.log(newPath + "    nový path");
+      console.log(oldPath + "    starý path");
+
+      try {
+        await fs.access(oldPath);
+        await fs.rename(oldPath, newPath);
+      } catch {
+        console.warn(`Folder ${oldSlug} not found or cannot be renamed.`);
+      }
+
+      // Update DB in a transaction
+      await prisma.$transaction(async (tx) => {
+        const project = await tx.project.update({
+          where: { slug: oldSlug },
+          data: { slug: newSlug, name: newName },
+          include: { images: true },
+        });
+
+        // Update image URLs
+        await Promise.all(
+          project.images.map(async (img) => {
+            const updatedUrl = path.join(basePath, newSlug, img.name);
+
+            await tx.image.update({
+              where: { id: img.id },
+              data: { url: updatedUrl },
+            });
+          })
+        );
+      });
+
+      return { success: true };
+    } catch (err) {
+      console.error("Project rename error:", err);
+      return fail(500, { error: "Chyba při přejmenování projektu" });
     }
   },
 
