@@ -1,6 +1,7 @@
 <script lang="ts">
   import TextDialog from "$lib/components/TextDialog.svelte";
   import type { TextData } from "$lib/types";
+  import { Info, Instagram, Mail, MapPin, Phone } from "lucide-svelte";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
@@ -20,16 +21,33 @@
   </h1>
 
   <div class="flex lg:flex-row flex-col gap-8 lg:mt-14 mt-8 w-full">
-    <div class="basis-1/2">
-      <span class="font-bold">Interiéry Cz</span>
-      <TextDialog data={text[19]} htmlTag="p" className="ml-4" />
+    <div class="basis-1/2 flex flex-col gap-2 lg:items-baseline items-center">
+      <div class="flex">
+        <MapPin />
+        <span class="font-bold ml-2">INTERIÉRY CZ</span>
+      </div>
+      <TextDialog data={text[19]} htmlTag="p" />
 
-      <span class="font-bold mt-4">Provozní doba</span>
-      <TextDialog data={text[20]} htmlTag="p" className="ml-4" />
+      <div class="flex">
+        <Info />
+        <span class="font-bold ml-2">Provozní doba</span>
+      </div>
+      <TextDialog data={text[20]} htmlTag="p" />
 
-      <TextDialog data={text[21]} htmlTag="span" className="font-bold mt-4" />
+      <div class="flex">
+        <Phone />
+        <TextDialog data={text[21]} htmlTag="span" className="font-bold ml-2" />
+      </div>
 
+      <div class="flex">
+        <Mail />
+        <TextDialog data={text[22]} htmlTag="span" className="font-bold ml-2" />
+      </div>
 
+      <div class="flex">
+        <Instagram />
+        <TextDialog data={text[23]} htmlTag="span" className="font-bold ml-2" />
+      </div>
     </div>
 
     <div class="basis-1/2">
