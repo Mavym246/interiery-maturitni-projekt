@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { Toaster } from "$lib/components/ui/sonner";
   import { onMount } from "svelte";
+  import "@fontsource-variable/sofia-sans";
   import "../app.css";
   import { animate } from "motion/mini";
 
@@ -105,3 +106,9 @@
     <a href="/admin/auth/" class="self-center">Administrace</a>
   </footer>
 </main>
+
+<style>
+  * {
+    font-family: "Sofia Sans Variable", sans-serif;
+  }
+</style>

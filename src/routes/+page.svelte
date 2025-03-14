@@ -96,7 +96,7 @@
   <img
     id="hero-image"
     src={heroImages[state.currentImageIndex]}
-    class="absolute top-0 right-0 bottom-0 z-0 left-0 w-full h-full object-cover object-top"
+    class="object-cover object-top absolute top-0 right-0 bottom-0 left-0 z-0 w-full h-full"
     loading="eager"
     draggable="false"
     sizes="100vw"
@@ -113,7 +113,7 @@
     />
     <a
       href="/realizace"
-      class="px-8 py-2 text-white border rounded-lg hover:bg-white hover:text-black transition duration-10000 ease-in-out"
+      class="px-8 py-2 text-white rounded-lg border transition ease-in-out hover:bg-white hover:text-black duration-10000"
     >
       Realizace &rAarr;
     </a>
@@ -124,7 +124,7 @@
   <section class="w-full">
     <TextDialog
       htmlTag="h1"
-      className="lg:text-6xl md:text-5xl sm:text-4xl text-left text-3xl font-bold"
+      className="lg:text-6xl md:text-5xl sm:text-4xl text-left text-3xl font-extrabold"
       data={text[1]}
     />
     <br />
@@ -132,7 +132,7 @@
       class="grid grid-cols-1 lg:grid-cols-[3fr_1fr] lg:grid-rows-3 gap-8 h-full lg:max-h-[500px] xl:min-h-[600px]"
     >
       <div
-        class="object-cover w-full h-full row-span-3 overflow-hidden drop-shadow-lg rounded-3xl"
+        class="object-cover overflow-hidden row-span-3 w-full h-full rounded-3xl drop-shadow-lg"
       >
         <enhanced:img
           src="/static/uvod/kuchyn1.webp"
@@ -144,15 +144,15 @@
       </div>
 
       <div
-        class="hidden w-full h-full row-span-1 overflow-hidden bg-gray-300 drop-shadow-xs lg:block rounded-3xl"
+        class="hidden overflow-hidden row-span-1 w-full h-full bg-gray-300 rounded-3xl drop-shadow-xs lg:block"
       >
         <div
-          class="flex flex-col justify-between w-full h-full gap-2 px-4 pt-5 pb-4 lg:gap-0"
+          class="flex flex-col gap-2 justify-between px-4 pt-5 pb-4 w-full h-full lg:gap-0"
         >
           <div>
             <TextDialog
               htmlTag="span"
-              className="px-6 py-1 text-base font-bold lg:border-2 border border-black rounded-2xl"
+              className="px-6 py-1 text-base font-bolder lg:border-2 border border-black rounded-2xl"
               data={text[2]}
             />
           </div>
@@ -169,7 +169,7 @@
         </div>
       </div>
       <div
-        class="hidden object-cover w-full h-full row-span-2 overflow-hidden bg-gray-300 drop-shadow-lg lg:block rounded-3xl"
+        class="hidden object-cover overflow-hidden row-span-2 w-full h-full bg-gray-300 rounded-3xl drop-shadow-lg lg:block"
       >
         <enhanced:img
           src="/static/uvod/zrcadlo.webp"
@@ -180,7 +180,7 @@
       </div>
     </div>
 
-    <div class="flex flex-row justify-center gap-4 mt-4 lg:gap-32 md:mt-12">
+    <div class="flex flex-row gap-4 justify-center mt-4 lg:gap-32 md:mt-12">
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
@@ -220,12 +220,12 @@
     </div>
   </section>
 
-  <section class="w-full my-24 lg:my-44">
+  <section class="my-24 w-full lg:my-44">
     <div
-      class="flex flex-col items-center justify-center w-full h-full gap-8 lg:flex-row"
+      class="flex flex-col gap-8 justify-center items-center w-full h-full lg:flex-row"
     >
       <enhanced:img
-        class="object-contain w-full h-full drop-shadow-lg basis-3/5 rounded-3xl"
+        class="object-contain w-full h-full rounded-3xl drop-shadow-lg basis-3/5"
         src="/static/uvod/kuchyn2.webp"
         alt="obrazek"
         sizes="100vw"
@@ -243,7 +243,7 @@
         />
         <a
           href="/o-nas"
-          class="px-8 py-2 mt-4 text-white bg-black border rounded-lg color-white"
+          class="px-8 py-2 mt-4 text-white bg-black rounded-lg border color-white"
           >O Nás &rAarr;</a
         >
       </div>
@@ -257,7 +257,7 @@
       data={text[13]}
     />
     <div
-      class="grid h-full grid-cols-1 grid-rows-1 gap-8 mt-8 grid-flow-column lg:grid-cols-3 lg:grid-rows-5 lg:max-h-screen"
+      class="grid grid-cols-1 grid-rows-1 gap-8 mt-8 h-full grid-flow-column lg:grid-cols-3 lg:grid-rows-5 lg:max-h-screen"
     >
       <a
         aria-label="Project card"
