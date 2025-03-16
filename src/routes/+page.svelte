@@ -20,7 +20,7 @@
 
   const kenBurnsEffect = async () => {
     let isRunning = true;
-    
+
     while (isRunning) {
       try {
         await animate(
@@ -30,20 +30,21 @@
             scale: [1, 1.15],
           },
           {
-            duration: 12,
+            duration: 7,
             ease: "linear",
-            times: [0, 0.2, 0.8, 1],
+            times: [0, 0.15, 0.85, 1],
           }
         ).then(() => {
           if (isRunning) {
-            state.currentImageIndex = (state.currentImageIndex + 1) % heroImages.length;
+            state.currentImageIndex =
+              (state.currentImageIndex + 1) % heroImages.length;
           }
         });
       } catch (e) {
         isRunning = false;
       }
     }
-    
+
     return () => {
       isRunning = false;
     };
@@ -51,13 +52,13 @@
 
   onMount(() => {
     let cleanupFn: (() => void) | undefined;
-    
-    kenBurnsEffect().then(cleanup => {
+
+    kenBurnsEffect().then((cleanup) => {
       cleanupFn = cleanup;
     });
 
     // Preload images
-    heroImages.forEach(src => {
+    heroImages.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
@@ -152,7 +153,7 @@
           <div>
             <TextDialog
               htmlTag="span"
-              className="px-6 py-1 text-base font-bolder lg:border-2 border border-black rounded-2xl"
+              className="px-6 py-1 text-base font-bold lg:border-2 border border-black rounded-2xl"
               data={text[2]}
             />
           </div>
@@ -184,36 +185,36 @@
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="md:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-extrabold"
           data={text[5]}
         />
         <TextDialog
           htmlTag="p"
-          className="md:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm"
           data={text[6]}
         />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="md:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-extrabold"
           data={text[7]}
         />
         <TextDialog
           htmlTag="p"
-          className="md:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm"
           data={text[8]}
         />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
           htmlTag="span"
-          className="md:text-5xl text-3xl font-bold"
+          className="md:text-5xl text-3xl font-extrabold"
           data={text[9]}
         />
         <TextDialog
           htmlTag="p"
-          className="md:text-lg text-sm leading-4 lg:leading-10"
+          className="md:text-lg text-sm "
           data={text[10]}
         />
       </div>
@@ -233,7 +234,7 @@
       <div class="basis-2/3">
         <TextDialog
           htmlTag="h2"
-          className="lg:text-4xl text-3xl font-bold"
+          className="lg:text-4xl text-3xl font-extrabold"
           data={text[11]}
         />
         <TextDialog
@@ -253,7 +254,7 @@
   <section class="w-full">
     <TextDialog
       htmlTag="h3"
-      className="lg:text-5xl text-3xl font-bold"
+      className="lg:text-5xl text-3xl font-extrabold"
       data={text[13]}
     />
     <div
@@ -262,7 +263,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
@@ -274,7 +275,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
@@ -286,7 +287,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
@@ -298,7 +299,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
@@ -310,7 +311,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
       >
         <enhanced:img
@@ -322,7 +323,7 @@
       <a
         aria-label="Project card"
         id="project-card"
-        href="/"
+        href="/realizace"
         class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl"
       >
         <enhanced:img
