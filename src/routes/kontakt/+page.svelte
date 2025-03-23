@@ -3,6 +3,7 @@
   import type { TextData } from "$lib/types";
   import { Info, Instagram, Mail, MapPin, Phone } from "lucide-svelte";
   import type { PageData } from "./$types";
+  import PageContainer from "$lib/components/PageContainer.svelte";
 
   let { data }: { data: PageData } = $props();
   let text: TextData[] = data.textData;
@@ -13,16 +14,14 @@
   <meta name="description" content="Kontakt | Interiéry CZ" />
 </svelte:head>
 
-<div class="flex flex-col mx-auto px-4 md:px-12 w-full max-w-[1500px] lg:mt-32">
-
-
-  <div class="flex flex-col gap-8 mt-8 w-full lg:flex-row lg:mt-14">
+<PageContainer>
+  <div class="flex flex-col gap-8 w-full lg:flex-row">
     <div class="flex flex-col gap-2 items-center basis-1/2 lg:items-baseline">
       <h1
-      class="text-4xl font-extrabold text-center lg:text-6xl sm:text-5xl lg:text-left"
-    >
-      Kontaktujte Nás
-    </h1>
+        class="text-4xl font-extrabold text-center lg:text-6xl sm:text-5xl lg:text-left"
+      >
+        Kontaktujte Nás
+      </h1>
       <div class="flex mt-4">
         <MapPin color="brown" />
         <span class="ml-2 font-bold">INTERIÉRY CZ</span>
@@ -64,4 +63,4 @@
       ></iframe>
     </div>
   </div>
-</div>
+</PageContainer>

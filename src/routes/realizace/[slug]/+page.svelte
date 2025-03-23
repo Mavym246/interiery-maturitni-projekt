@@ -8,6 +8,7 @@
   import Editor from "$lib/components/Editor.svelte";
   import ImageUploadForm from "$lib/components/forms/ImageUploadForm.svelte";
   import type { ProjectData } from "$lib/types";
+  import PageContainer from "$lib/components/PageContainer.svelte";
 
   let { data }: { data: PageData } = $props();
   const loggedIn = data.loggedIn;
@@ -19,10 +20,7 @@
   <meta name="description" content="Realizace projektu {project.name}" />
 </svelte:head>
 
-<br />
-<div
-  class="flex lg:mt-30 flex-col max-w-[1500px] w-full justify-center mx-auto"
->
+<PageContainer>
   {#if project.images.length === 0}
     <span class="mt-24 text-5xl font-bold text-center">Zatím žádný obrázek</span
     >
@@ -68,7 +66,8 @@
       {/if}
       <!-- Upravení projektu -->
 
-      <ProjectEdit data={project}/>
+      <div class="mt"></div>
+      <ProjectEdit data={project} />
     </div>
   {/if}
 
@@ -89,7 +88,7 @@
       <ProjectDelDialog data={project} />
     </section>
   {/if}
-</div>
+</PageContainer>
 
 <style>
 </style>

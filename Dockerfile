@@ -1,7 +1,7 @@
 FROM node:lts-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --force
+RUN npm ci
 COPY . .
 RUN npx prisma generate
 RUN npm run build
@@ -16,7 +16,7 @@ COPY --from=builder /app/build ./build
 COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/prisma ./prisma
 
-USER root
+USER node
 EXPOSE 3000
 
 CMD ["node", "server.js"]

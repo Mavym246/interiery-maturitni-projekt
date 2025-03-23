@@ -1,38 +1,39 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
   import ProjectCard from "$lib/components/ProjectCard.svelte";
-  import { Button, buttonVariants } from "$lib/components/ui/button";
-  import * as Dialog from "$lib/components/ui/dialog/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import { Label } from "$lib/components/ui/label/index.js";
-  import { goto } from "$app/navigation";
-  import Loader from "$lib/components/Loader.svelte";
-  import { toast } from "svelte-sonner";
+  import { Button } from "$lib/components/ui/button";
   import * as Carousel from "$lib/components/ui/carousel/index.js";
   import type { CategoryData, ProjectData } from "$lib/types";
-  import { page } from "$app/state";
+  import CategoryAddForm from "$lib/components/forms/CategoryAddForm.svelte";
+  import CategoryDeleteForm from "$lib/components/forms/CategoryDeleteForm.svelte";
+  import ProjectAddForm from "$lib/components/forms/ProjectAddForm.svelte";
+  import PageContainer from "$lib/components/PageContainer.svelte";
 
-  export let data: { projects: ProjectData[], categories: CategoryData[], loggedIn: boolean };
-  let formLoading = false;
+  let { data } = $props<{
+    data: {
+      projects: ProjectData[];
+      categories: CategoryData[];
+      loggedIn: boolean;
+    };
+  }>();
 
-  let projects: ProjectData[] = [...data.projects];
-  let categories: CategoryData[] = [...data.categories];
-  let selectedCategory: string | null = null;
-  let filterKey = 0;
+  let projects = $state(data.projects);
+  let categories = $state(data.categories);
+  let selectedCategory = $state<string | null>(null);
+  let filterKey = $state(0);
 
-  $: filteredProjects = selectedCategory
-    ? projects.filter(project =>
-        project.categories.some(category => category.name === selectedCategory)
-      )
-    : projects;
+  let filteredProjects = $derived(
+    selectedCategory
+      ? projects.filter((project: ProjectData) =>
+          project.categories.some(
+            (category: CategoryData) => category.name === selectedCategory
+          )
+        )
+      : projects
+  );
 
   const updateCategory = (category: string) => {
-    if (selectedCategory === category) {
-      selectedCategory = null;
-    } else {
-      selectedCategory = category;
-    }
-    filterKey++; // Increment key to trigger re-animation
+    selectedCategory = selectedCategory === category ? null : category;
+    filterKey++;
   };
 </script>
 
@@ -40,77 +41,11 @@
   <title>Realizace | Interiéry CZ</title>
 </svelte:head>
 
-<br />
-
-<div class="flex flex-col mx-auto lg:px-12 px-4 max-w-[1500px] w-full h-full sm:mt-32">
+<PageContainer>
   <h1 class="mb-8 text-6xl font-bold text-center">Realizace</h1>
 
   {#if data.loggedIn}
-    <Dialog.Root>
-      <Dialog.Trigger
-        class={buttonVariants({ variant: "outline" }) +
-          " max-w-32 mx-auto mb-8"}>Přidat Projekt</Dialog.Trigger
-      >
-      <Dialog.Content class="sm:max-w-[425px]">
-        <Dialog.Header>
-          <Dialog.Title>Přidat projekt</Dialog.Title>
-          <Dialog.Description>
-            Vyplňte název projektu a klikněte na Uložit Změny.
-          </Dialog.Description>
-        </Dialog.Header>
-
-        <form
-          method="post"
-          action="?/addProject"
-          class="flex flex-col gap-4"
-          use:enhance={({ formData }) => {
-            formLoading = true;
-            const name = formData.get("name") as string;
-            const slug = name
-              .toLowerCase()
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .replace(/\s+/g, "-")
-              .replace(/[^a-z0-9-]/g, "");
-            formData.append("slug", slug);
-
-            return async ({ result }) => {
-              formLoading = false;
-              if (result.type === "success") {
-                goto("/realizace/" + slug);
-                toast.success("Projekt byl úspěšně vytvořen");
-              } else {
-                toast.error("Projekt se nepodařilo vytvořit");
-              }
-            };
-          }}
-        >
-          <Label for="name" class="my-2">Název</Label>
-          <Input required type="text" name="name" />
-
-          <Label for="categories">Kategorie</Label>
-          <select
-            required
-            multiple
-            class="p-2 bg-white border border-black rounded"
-            name="categories"
-            id=""
-          >
-            {#each categories as category}
-              <option value={category.id}>{category.name}</option>
-            {/each}
-          </select>
-
-          <Button type="submit" disabled={formLoading}>
-            {#if formLoading}
-              <Loader />
-            {:else}
-              Uložit Změny
-            {/if}
-          </Button>
-        </form>
-      </Dialog.Content>
-    </Dialog.Root>
+    <ProjectAddForm {categories} />
   {/if}
 
   <div class="flex justify-center mb-8">
@@ -125,12 +60,21 @@
           <Carousel.Item class="text-center basis-1/2 lg:basis-1/3">
             <Button
               onclick={() => updateCategory(category.name)}
-              class="hover:underline hover:bg-transparent bg-transparent text-black {selectedCategory === category.name ? 'underline font-bold' : ''}"
+              class="hover:underline hover:bg-transparent bg-transparent text-black {selectedCategory ===
+              category.name
+                ? 'underline font-bold'
+                : ''}"
             >
               {category.name}
             </Button>
+              <CategoryDeleteForm {category} />
           </Carousel.Item>
         {/each}
+        {#if data.loggedIn}
+        <Carousel.Item>
+            <CategoryAddForm />
+          </Carousel.Item>
+        {/if}
       </Carousel.Content>
 
       {#if categories.length >= 3}
@@ -142,7 +86,7 @@
 
   <div class="grid gap-16 lg:grid-cols-2">
     {#each filteredProjects as project, i}
-      <ProjectCard data={project} index={i} filterKey={filterKey} />
+      <ProjectCard data={project} index={i} {filterKey} />
     {/each}
   </div>
-</div>
+</PageContainer>

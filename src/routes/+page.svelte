@@ -4,6 +4,7 @@
   import { animate, inView } from "motion";
   import type { PageData } from "./$types";
   import { onMount } from "svelte";
+  import PageContainer from "$lib/components/PageContainer.svelte";
 
   let { data }: { data: PageData } = $props();
   let text: TextData[] = data.textData;
@@ -120,8 +121,7 @@
     </a>
   </div>
 </div>
-
-<div class="flex flex-col mx-auto md:px-12 px-4 max-w-[1500px] mt-24">
+<PageContainer class="lg:mt-20">
   <section class="w-full">
     <TextDialog
       htmlTag="h1"
@@ -188,11 +188,7 @@
           className="md:text-5xl text-3xl font-extrabold"
           data={text[5]}
         />
-        <TextDialog
-          htmlTag="p"
-          className="md:text-lg text-sm"
-          data={text[6]}
-        />
+        <TextDialog htmlTag="p" className="md:text-lg text-sm" data={text[6]} />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
@@ -200,11 +196,7 @@
           className="md:text-5xl text-3xl font-extrabold"
           data={text[7]}
         />
-        <TextDialog
-          htmlTag="p"
-          className="md:text-lg text-sm"
-          data={text[8]}
-        />
+        <TextDialog htmlTag="p" className="md:text-lg text-sm" data={text[8]} />
       </div>
       <div class="w-full text-center lg:w-48 lg:text-left">
         <TextDialog
@@ -334,4 +326,4 @@
       </a>
     </div>
   </section>
-</div>
+</PageContainer>

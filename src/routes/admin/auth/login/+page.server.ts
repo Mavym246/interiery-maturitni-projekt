@@ -1,5 +1,5 @@
 import { hash, verify } from '@node-rs/argon2';
-import { encodeBase32LowerCase } from '@oslojs/encoding';
+import crypto from 'crypto';
 import { fail, redirect } from '@sveltejs/kit';
 import * as auth from '$lib/server/auth';
 import { prisma } from '$lib/server/prisma';
@@ -90,9 +90,13 @@ export const actions: Actions = {
 
 function generateUserId() {
 	// ID with 120 bits of entropy, or about the same as UUID v4.
-	const bytes = crypto.getRandomValues(new Uint8Array(15));
-	const id = encodeBase32LowerCase(bytes);
-	return id;
+	const bytes = crypto.randomBytes(15);
+	// Convert to base64 and make it URL-safe and resembling base32
+	return bytes.toString('base64')
+		.replace(/\+/g, '')
+		.replace(/\//g, '')
+		.replace(/=/g, '')
+		.toLowerCase();
 }
 
 function validateUsername(username: unknown): username is string {

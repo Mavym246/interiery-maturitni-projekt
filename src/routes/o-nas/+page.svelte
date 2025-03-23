@@ -2,6 +2,7 @@
   import TextDialog from "$lib/components/TextDialog.svelte";
   import type { TextData } from "$lib/types";
   import type { PageData } from "./$types";
+  import PageContainer from "$lib/components/PageContainer.svelte";
 
   let { data }: { data: PageData } = $props();
 
@@ -13,9 +14,7 @@
   <meta name="description" content="O firmě Interiéry Cz" />
 </svelte:head>
 
-<div
-  class="flex flex-col mx-auto sm:px-12 px-4 w-full max-w-[1500px] lg:mt-44 mt-12"
->
+<PageContainer>
   <section
     class="flex flex-col gap-8 justify-center items-center w-full lg:flex-row"
   >
@@ -76,4 +75,4 @@
       class="bg-gray-300 mt-8 rounded-3xl w-full min-h-[300px] lg:h-[700px]"
     ></div>
   </section>
-</div>
+</PageContainer>
