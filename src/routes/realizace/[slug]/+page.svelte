@@ -64,15 +64,15 @@
         <!-- Odstranění obrázků -->
         <ImageDeleteForm data={project} />
       {/if}
-      <!-- Upravení projektu -->
-
-      <div class="mt"></div>
-      <ProjectEdit data={project} />
     </div>
   {/if}
 
   <section class=" flex flex-col mt-16">
-    <h1 class="text-6xl font-bold">{project.name}</h1>
+    <div class="flex gap-4">
+      <h1 class="text-6xl font-bold">{project.name}</h1>
+      <!-- Upravení projektu -->
+      <ProjectEdit data={project} />
+    </div>
 
     <div class="mt-4 tiptap">
       {#if loggedIn}

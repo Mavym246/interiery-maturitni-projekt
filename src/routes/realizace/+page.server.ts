@@ -70,7 +70,7 @@ export const actions = {
 
       return { success: true };
     } catch (error) {
-      console.error("Error creating category:", error);
+      console.error("Chyba při vytváření kategorie", error);
       return fail(500, { error: "Chyba při vytváření kategorie" });
     }
   },
@@ -99,7 +99,7 @@ export const actions = {
 
       return { success: true };
     } catch (error) {
-      console.error("Error deleting category:", error);
+      console.error("Chyba při vytváření kategorie:", error);
       return fail(500, { error: "Chyba při odstraňování kategorie" });
     }
   },

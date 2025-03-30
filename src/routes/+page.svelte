@@ -3,7 +3,7 @@
   import type { TextData } from "$lib/types";
   import { animate, inView } from "motion";
   import type { PageData } from "./$types";
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import PageContainer from "$lib/components/PageContainer.svelte";
 
   let { data }: { data: PageData } = $props();
@@ -19,9 +19,9 @@
     currentImageIndex: 0,
   });
 
-  const kenBurnsEffect = async () => {
-    let isRunning = true;
+  let isRunning = true;
 
+  const kenBurnsEffect = async () => {
     while (isRunning) {
       try {
         await animate(
@@ -45,18 +45,11 @@
         isRunning = false;
       }
     }
-
-    return () => {
-      isRunning = false;
-    };
   };
 
   onMount(() => {
-    let cleanupFn: (() => void) | undefined;
-
-    kenBurnsEffect().then((cleanup) => {
-      cleanupFn = cleanup;
-    });
+    isRunning = true;
+    kenBurnsEffect();
 
     // Preload images
     heroImages.forEach((src) => {
@@ -79,10 +72,10 @@
         { duration: 1, delay: 1.5, ease: "easeInOut" }
       );
     });
+  });
 
-    return () => {
-      cleanupFn?.();
-    };
+  onDestroy(() => {
+    isRunning = false;
   });
 </script>
 
@@ -106,6 +99,7 @@
   />
   <div
     id="hero-text"
+    role="alertdialog"
     class="max-w-[400px] z-50 xl:ml-34 sm:ml-12 m-4 mb-8 rounded-3xl bg-black/80 backdrop-blur-xs p-8"
   >
     <TextDialog
@@ -256,72 +250,72 @@
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_skrin.webp"
           alt="Skrin"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
       <a
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_kuchyn3.webp"
           alt="Kuchyne"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
       <a
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_vitrina.webp"
           alt="Vitrina"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
       <a
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_satna.webp"
           alt="Satna"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
       <a
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 brightness-100 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-3 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_loznice.webp"
           alt="Loznice"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
       <a
         aria-label="Project card"
         id="project-card"
         href="/realizace"
-        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl"
+        class="max-h-[500px] lg:max-h-full overflow-hidden shadow-xl bg-gray-300 lg:row-span-2 drop-shadow-lg min-h-56 rounded-3xl group relative"
       >
         <enhanced:img
           src="/static/uvod/uvod_kuchyn4.webp"
           alt="Kuchyne 2"
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform ease-in-out duration-700"
         />
       </a>
     </div>

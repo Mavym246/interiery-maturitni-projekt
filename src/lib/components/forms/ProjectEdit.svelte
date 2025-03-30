@@ -20,10 +20,10 @@
 
 {#if loggedIn}
   <Button
-    class="cursor-pointer text-blue-600 hover:opacity-80"
+    class="cursor-pointer  hover:opacity-80"
     onclick={() => dialogOpen = true}
   >
-    Upravit
+    Upravit název
   </Button>
   <Dialog.Root bind:open={dialogOpen}>
     <Dialog.Content class="sm:max-w-[425px]">

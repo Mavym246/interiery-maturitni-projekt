@@ -10,6 +10,7 @@
   import type { TextData } from "$lib/types";
   import { animate, inView } from "motion";
   import { onMount } from "svelte";
+  import { goto, invalidate, invalidateAll } from "$app/navigation";
 
   $: loggedIn = page.data.loggedIn;
   export let data: TextData;
@@ -39,7 +40,6 @@
   }
 </script>
 
-<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <svelte:element
   this={htmlTag}
   id="text-dialog"
@@ -50,6 +50,7 @@
       : "")}
   onclick={handleTextClick}
   role="dialog"
+  tabindex="0"
 >
   {content}
 </svelte:element>
@@ -60,7 +61,7 @@
       <Dialog.Header>
         <Dialog.Title>Upravit Text</Dialog.Title>
         <Dialog.Description>
-          Upravte text a klikněte na Uložit Změny.
+          Upravte text a klikněte na Uložit Změny.
         </Dialog.Description>
       </Dialog.Header>
 
@@ -75,17 +76,22 @@
               dialogOpen = false;
               loading = false;
               content = formData.get("content") as string;
-              toast.success("Text byl úspěšně uložen");
+              toast.success("Text byl úspěšně uložen");
             } else {
               loading = false;
-              toast.error("Text se nepodařilo uložit");
+              toast.error("Text se nepodařilo uložit");
             }
           };
         }}
       >
         <Label for="name" class="my-2">Text</Label>
-        <Input type="text" name="content" value={content} />
-        <Button disabled={loading} class="min-w-[110px]" type="submit">
+        <textarea
+          name="content"
+          rows="5"
+          class="w-full min-h-[120px] border rounded-md p-2 resize-y"
+          >{content}</textarea
+        >
+        <Button disabled={loading} class="min-w-[110px] mt-4" type="submit">
           {#if loading}
             <Loader />
           {:else}

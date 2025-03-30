@@ -16,7 +16,7 @@
     };
   }>();
 
-  let projects = $state(data.projects);
+  let projects = $state([...data.projects.reverse()]);
   let categories = $state(data.categories);
   let selectedCategory = $state<string | null>(null);
   let filterKey = $state(0);

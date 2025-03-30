@@ -30,9 +30,11 @@
         data={text[15]}
       />
     </div>
-    <div
+    <img
+      src="o_nas/o-nas.webp"
+      alt="Foto o nás"
       class="w-full sm:min-h-[400px] lg:h-[500px] h-[40vh] lg:order-2 order-1 rounded-3xl overflow-hidden max-h-[600px] bg-gray-300"
-    ></div>
+    />
   </section>
 
   <section
@@ -41,14 +43,26 @@
     <div
       class="grid grid-rows-2 h-[40vh] sm:min-h-[400px] max-h-[600px] w-full grid-cols-5 gap-4 lg:gap-8 min-h-[300px] lg:h-[500px] lg:w-[800px]"
     >
-      <div class="col-span-3 w-full h-full bg-gray-300 rounded-3xl">1</div>
       <img
-        src="o_nas/material-cerny.png"
+        src="o_nas/material-bily-mramor.webp"
+        alt="Materiál bílý mramor"
+        class="col-span-3 w-full h-full rounded-3xl object-cover"
+      />
+      <img
+        src="o_nas/material-cerny.webp"
         alt="Material cerny"
         class="col-span-2 w-full h-full rounded-3xl"
       />
-      <div class="col-span-2 w-full h-full bg-gray-300 rounded-3xl">3</div>
-      <div class="col-span-3 w-full h-full bg-gray-300 rounded-3xl">4</div>
+      <img
+        src="o_nas/material-drevo.webp"
+        alt="Materiál dřevo"
+        class="col-span-2 w-full h-full rounded-3xl object-cover"
+      />
+      <img
+        src="o_nas/material-mramor-cerny.webp"
+        alt="Materiál mramor černý"
+        class="col-span-3 w-full h-full rounded-3xl object-cover"
+      />
     </div>
 
     <div class="w-full basis-[50%]">

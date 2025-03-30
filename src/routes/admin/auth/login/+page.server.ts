@@ -19,10 +19,10 @@ export const actions: Actions = {
 		const password = formData.get('password');
 
 		if (!validateUsername(username)) {
-			return fail(400, { message: 'Invalid username' });
+			return fail(400, { message: 'Neplatné uživatelské jméno' });
 		}
 		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password' });
+			return fail(400, { message: 'Neplatné heslo' });
 		}
 
 		const existingUser = await prisma.user.findUnique({
@@ -30,7 +30,7 @@ export const actions: Actions = {
 		});
 
 		if (!existingUser) {
-			return fail(400, { message: 'Incorrect username or password' });
+			return fail(400, { message: 'Nesprávné uživatelské jméno nebo heslo' });
 		}
 
 		const validPassword = await verify(existingUser.passwordHash, password as string, {
@@ -40,7 +40,7 @@ export const actions: Actions = {
 			parallelism: 1,
 		});
 		if (!validPassword) {
-			return fail(400, { message: 'Incorrect username or password' });
+			return fail(400, { message: 'Nesprávné uživatelské jméno nebo heslo' });
 		}
 
 		const sessionToken = auth.generateSessionToken();
@@ -49,43 +49,43 @@ export const actions: Actions = {
 
 		throw redirect(302, '/admin/auth');
 	},
-	register: async (event) => {
-		const formData = await event.request.formData();
-		const username = formData.get('username');
-		const password = formData.get('password');
+	// register: async (event) => {
+	// 	const formData = await event.request.formData();
+	// 	const username = formData.get('username');
+	// 	const password = formData.get('password');
 
-		if (!validateUsername(username)) {
-			return fail(400, { message: 'Invalid username' });
-		}
-		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password' });
-		}
+	// 	if (!validateUsername(username)) {
+	// 		return fail(400, { message: 'Neplatné uživatelské jméno' });
+	// 	}
+	// 	if (!validatePassword(password)) {
+	// 		return fail(400, { message: 'Neplatné heslo' });
+	// 	}
 
-		const userId = generateUserId();
-		const passwordHash = await hash(password as string, {
-			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1,
-		});
+	// 	const userId = generateUserId();
+	// 	const passwordHash = await hash(password as string, {
+	// 		memoryCost: 19456,
+	// 		timeCost: 2,
+	// 		outputLen: 32,
+	// 		parallelism: 1,
+	// 	});
 
-		try {
-			await prisma.user.create({
-				data: {
-					id: userId,
-					username: username as string,
-					passwordHash,
-				},
-			});
+	// 	try {
+	// 		await prisma.user.create({
+	// 			data: {
+	// 				id: userId,
+	// 				username: username as string,
+	// 				passwordHash,
+	// 			},
+	// 		});
 
-			const sessionToken = auth.generateSessionToken();
-			const session = await auth.createSession(sessionToken, userId);
-			auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
-		} catch (e) {
-			return fail(500, { message: 'An error has occurred' });
-		}
-		throw redirect(302, '/admin/auth');
-	},
+	// 		const sessionToken = auth.generateSessionToken();
+	// 		const session = await auth.createSession(sessionToken, userId);
+	// 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
+	// 	} catch (e) {
+	// 		return fail(500, { message: 'Došlo k chybě' });
+	// 	}
+	// 	throw redirect(302, '/admin/auth');
+	// },
 };
 
 function generateUserId() {
