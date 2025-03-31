@@ -85,8 +85,10 @@
       className="lg:text-6xl text-center text-3xl font-extrabold"
       data={text[18]}
     />
-    <div
-      class="bg-gray-300 mt-8 rounded-3xl w-full min-h-[300px] lg:h-[700px]"
-    ></div>
+    <img
+      class="object-cover mt-8 rounded-3xl w-full min-h-[300px] lg:h-[700px]"
+      src="o_nas/vyroba.webp"
+      alt="Výroba"
+    />
   </section>
 </PageContainer>
